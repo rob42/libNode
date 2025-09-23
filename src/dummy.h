@@ -24,11 +24,11 @@
 #include "ZenohNode.h"
 #include "WifiNode.h"
 #include "NMEA2000Node.h"
-#include "ModbusNode.h"
+#include "WindNode.h"
 #include "WebServerNode.h"
 #include <PicoSyslog.h>
 
-//extern PicoSyslog::Logger syslog;
+extern PicoSyslog::Logger syslog;
 
 extern "C++" {
   void setup();

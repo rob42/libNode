@@ -20,7 +20,7 @@
 // zenoh key that is published.
 #define KEYEXPR "test/test"
 
-//extern PicoSyslog::Logger syslog;
+extern PicoSyslog::Logger syslog;
 typedef void (*ZenohMessageCallback)(const char* topic, const char* payload, size_t len);
 
 

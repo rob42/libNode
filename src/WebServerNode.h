@@ -9,7 +9,7 @@
 #include <WiFi.h>
 #include <PicoSyslog.h>
 
-//extern PicoSyslog::Logger syslog;
+extern PicoSyslog::Logger syslog;
 
 class WebServerNode
 {
@@ -20,7 +20,7 @@ public:
 
     // Create an Event Source on /events
     AsyncEventSource events;
-    // Json Variable to Hold Sensor Readings
+    // Json Variable to hold data (Sensor Readings)
     JSONVar readings;
 
     unsigned long webLastTime = 0;
@@ -31,13 +31,13 @@ public:
         // Initialize LittleFS
         if (!LittleFS.begin())
         {
-            Serial.println("An error has occurred while mounting LittleFS");
+            syslog.error.println("An error has occurred while mounting LittleFS");
             return;
         }
-        Serial.println("LittleFS mounted successfully");
+        syslog.information.println("LittleFS mounted successfully");
 
 
-        Serial.print("Starting webserver...");
+        syslog.information.print("Starting webserver...");
         server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
                   { request->send(LittleFS, "/index.html", "text/html"); });
         server.serveStatic("/", LittleFS, "/");
@@ -48,12 +48,12 @@ public:
         events.onConnect([](AsyncEventSourceClient *client)
                 {
             if(client->lastId()) {
-                Serial.printf("Client reconnected! Last message ID that it got is: %u\n", client->lastId());
+                syslog.debug.printf("Client reconnected! Last message ID that it got is: %u\n", client->lastId());
             }
             client->send("hello!", NULL, millis(), 10000); });
         server.addHandler(&events);
         server.begin();
-        Serial.println("OK");
+        syslog.information.println("OK");
     }
     void update()
     {
@@ -65,9 +65,8 @@ public:
         }
     }
 
-    void setSensorReadings(double awa, double aws){
-        readings["awa"] = awa; // String(bme.readTemperature());
-        readings["aws"] = aws; // String(bme.readHumidity());
+    void setSensorData(const char* key, double value){
+        readings[key] = value; // String(bme.readTemperature());
     }
 
 };

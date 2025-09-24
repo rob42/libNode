@@ -1,0 +1,43 @@
+{
+    "name": "libNode",
+    "version": "0.0.1",
+    "description": "A library of esp32 classes (nodes) to share simplified connection wrappers to various systems and devices",
+    "keywords": [
+        "esp32",
+        "signalk",
+        "arduino",
+        "pubsub",
+        "publish",
+        "subscribe",
+        "query",
+        "distributed data distribution"
+    ],
+    "homepage": "https://github.com/rob42/libNode/",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/rob42/libNode"
+    },
+    "authors": {
+        "name": "Robert Huitema",
+        "email": "robert@42.co.nz",
+        "url": "https://www.42.co.nz/",
+        "maintainer": true
+    },
+    "license": "Apache-2.0 OR EPL-2.0",
+    "frameworks": [
+        "arduino"
+    ],
+    "headers": [
+        "libNode.h"
+    ],
+    "examples": [
+        "examples"
+    ],
+    "dependencies": {
+        "BluetoothSerial": "0.16.1",
+        "FreeRTOS": "1.0.0"
+    },
+    "build": {
+        "extraScript": "extra_script.py"
+    }
+}
